@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+
+ 
+<h1>Select A Form to submit</h1>
+<ul>
+{% if painForm%}
+	<li><a href="/form/painForm">Template pain form</a></li>
+	
+
+
+{%endif%}
+	<!--add check if patient needs to submit these forms-->
+	<li><a href="/form/painPerceptionDiaryForm">Pain Perception Diary</a></li>
+	<li><a href="/form/LBPCharacteriseForm">LBP Characterise form</a></li>
+	<li><a href="/form/backPainForm">Back Pain Form</a></li>
+</ul>
+{% endblock %}

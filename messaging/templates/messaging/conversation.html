@@ -1,0 +1,98 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+
+<style>
+.textbox {
+	
+	position: relative;
+
+   border-radius: .4em;
+	width: 40%;
+	min-height: 30px;
+	padding:5px;
+	margin: 50px;
+}
+.outgoing {
+	position: relative;
+	background: #417690;
+	color: #ffffff;
+	border-radius: .4em;
+	width: 40%;
+	min-height: 30px;
+	padding:10px;
+	margin: 50px;
+}
+
+.outgoing:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 22px solid transparent;
+	border-top-color: #417690;
+	border-bottom: 0;
+	border-left: 0;
+	margin-left: -11px;
+	margin-bottom: -22px;
+
+}
+.incoming {
+	left: 100px;
+	position: relative;
+	background: #00aabb;
+	border-radius: .4em;
+	width: 40%;
+	min-height: 30px;
+	padding:10px;
+	margin: 50px;
+}
+
+.incoming:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 22px solid transparent;
+	border-top-color: #00aabb;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: -11px;
+	margin-bottom: -22px;
+}
+</style>
+<h2>{{conversation}}</h2>
+{% for message in messages %}
+	{% if message.sender == request.user%}
+		<p class="outgoing">Me:	{{message.text}}</p>
+		<!--TODO add datetime field and 'seen at' to message model{{message.dateTime}}-->
+	
+	{%else %}
+		<p class="incoming">{{message.sender.first_name}}: 	{{message.text}}</p>
+	{%endif%}
+{% endfor%}
+<!--enter form for reply-->
+
+<form action="/messaging/sendReply/" method="post">
+{% csrf_token  %}
+<fieldset class="module aligned">
+	<input type="hidden" name="conversation_id" value="{{conversation.id}}">
+	<input type="hidden" name="recipient" value="{{recipient.id}}">
+	
+	<div class="form-row">
+        
+        <textarea class="textbox" placeholder="Enter Message Here..." id="message" name="message" rows="6" cols="30"></textarea>
+        <br/>
+         <input type="submit" value="Submit">
+    </div>
+
+</fieldset>
+<div class="submit-row">
+       
+    </div>
+</form>
+
+{% endblock %}

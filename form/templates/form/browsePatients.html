@@ -1,0 +1,12 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+
+<h1>List of your patients</h1>
+<ul>
+
+{% for patient in patients %}
+<li><a href="/form/patientSubmissions/{{patient.id}}">{{patient}}</a></li>
+{% endfor%}
+
+</ul>
+{% endblock %}

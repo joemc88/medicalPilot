@@ -1,0 +1,30 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+
+<form method="post" action="/messaging/sendMessage/">
+    {% csrf_token  %}
+<fieldset class="module aligned">
+    <div class="form-row">
+        <label class="lab">Recipient:</label>   
+        <div class="related-widget-wrapper">
+        <select name="recipient" required id="id_user">
+        {% for x in doctors%}
+            <option value="{{x.user.id}}">{{x}}</option>
+        {%endfor%}
+          {% for y in patients%}
+            <option value="{{y.user.id}}">{{y}}</option>
+        {%endfor%}
+        </select>
+        </div>
+    </div>
+<div class="form-row">
+        <label class="lab">Message </label>
+        <textarea id="message" name="message" rows="6" cols="30"></textarea>
+    </div>
+   </fieldset> 
+   <div class="submit-row">
+        <input type="submit" value="Submit">
+    </div>
+</form>
+
+{% endblock %}

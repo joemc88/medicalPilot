@@ -1,0 +1,29 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+
+<h1>List of {{patient.user.first_name}}'s form submissions</h1>
+	{% if painForms or LBPs or BackPains or painDiaries%}
+	<ul>
+		{% for submission in painForms %}
+		<li><a href="/form/review/{{submission.id }}">{{submission}}</a></li>
+		{%endfor%}
+		{% for submission in LBPs %}
+		<li><a href="/form/review/{{submission.id }}">{{submission}}</a></li>
+		{%endfor%}
+		{% for submission in BackPains %}
+		<li><a href="/form/review/{{submission.id }}">{{submission}}</a></li>
+		{%endfor%}
+		{% for submission in painDiaries %}
+		<li><a href="/form/review/{{submission.id }}">{{submission}}</a></li>
+		{%endfor%}
+
+	</ul>
+	{% else %}
+		<p>No submissions to show for {{patient.user.first_name}} {{patient.user.last_name}}</p>
+	{% endif%}
+<br/>
+
+<a href="/form/selectForm/">Add Submission</a>
+
+
+{% endblock %}

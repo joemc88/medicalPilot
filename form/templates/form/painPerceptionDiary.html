@@ -1,0 +1,163 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+<style type="text/css">
+	#container{
+		width: 80%;
+  margin:0 auto;
+  text-align: left;
+
+	}
+	.aligned .lab{
+		width:50%;
+		font-weight: bold;
+		padding-left: 80px;
+	}
+</style>
+<div id="container">
+<h1>Pain Perception Diary</h1>
+
+<p>
+Verbal Rating Score:<br/>
+	None : 0<br/>
+	Mild: 1-2<br/>
+	Moderate: 3-5<br/>
+	Severe: 6-7<br/>
+	Unbearable: 8-10
+</p>
+
+<form action="/form/submitPainPerceptionDiary/" method="post">
+{% csrf_token  %}
+<fieldset class="module aligned">
+	<div class="form-row">
+		<label class="lab" >First name:</label>
+		<input class="vTextField" type="text" readonly="true" name="first_name" value="{{ user.first_name }}"></input><br />
+	</div>
+		<div class="form-row">
+		<label  class="lab" >Last name:</label>
+		<input class="vTextField" type="text" name="last_name"  readonly="true" value="{{ user.last_name }}"></input><br />
+	</div>
+		<div class="form-row">
+		<label class="lab">Date:</label>
+		<input class="vTextField" type ="text" name="date" readonly="true" value="{{ date }}"><br />
+	</div>
+		<div class="form-row">
+		<label class="lab">Pain at its worse in the past week</label>
+		<div class="related-widget-wrapper">
+			<select name="PainAtWorst" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<label class="lab">Pain at its least in the past week</label>
+				<div class="related-widget-wrapper">
+			<select name="PainAtLeast" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<label class="lab">Pain on average</label>
+				<div class="related-widget-wrapper">
+			<select name="PainOnAverage" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<label class="lab">Pain right now </label>
+				<div class="related-widget-wrapper">
+			<select name="PainRightNow" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+	<h3>Pain has interfered with your:</h3>
+	</div>
+	<div class="form-row">
+		<label class="lab">General Activity</label>
+				<div class="related-widget-wrapper">
+			<select name="GeneralActivity" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<label class="lab">Mood </label>
+				<div class="related-widget-wrapper">
+			<select name="Mood" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<label class="lab">Walking Ability</label>
+				<div class="related-widget-wrapper">
+			<select name="WalkingAbility" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<label class="lab">Normal Work </label>
+				<div class="related-widget-wrapper">
+			<select name="NormalWork" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<label class="lab">Relationships with other people </label>
+				<div class="related-widget-wrapper">
+			<select name="Relationships" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+<div class="form-row">
+		<label class="lab">Sleep </label>
+				<div class="related-widget-wrapper">
+			<select name="Sleep" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<label class="lab">Enjoyment of life </label>
+				<div class="related-widget-wrapper">
+			<select name="EnjoymentOfLife" required id="id_user">
+				{% for x in 'xxxxxxxxxxx' %}
+				<option value="{{forloop.counter0}}">{{forloop.counter0}}</option>
+				{%endfor%}
+			</select>
+		</div>
+	</div>
+</fieldset>	
+	<div class="submit-row">
+		<input type="submit" value="Submit">
+	</div>
+</form>
+</div>
+
+{% endblock %}

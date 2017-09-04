@@ -1,0 +1,15 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+
+<h1>This is the site homepage</h1>
+<!--Modify this list depending on the role of the user-->
+<ul>
+{% if userIsAdmin %}
+	<li><a href="/userAdmin/">Go to User Admin</a></li>
+	<li><a href="/analyse/">Go to analysis page</a></li>	
+{% endif%}
+<li><a href="/messaging/">Send a message</a></li>
+<li><a href="/form/">Go to Forms</a></li>
+</ul>
+
+{% endblock %}

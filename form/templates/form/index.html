@@ -1,0 +1,15 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+
+<h1>Forms Homepage</h1>
+<ul>
+{% if isDoctor%}	
+	<li><a href="/form/browsePatients">Browse by patients</a></li>
+	<li><a href="/form/browseForms">Browse by form type</a></li>
+{%else%}
+	<li><a href="/form/mySubmissions">Browse previous submissions</a></li>
+	<li><a href="/form/selectForm">Submit a Form</a></li>
+	
+{% endif%}
+</ul>
+{% endblock %}

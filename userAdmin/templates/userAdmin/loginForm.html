@@ -1,0 +1,57 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+
+
+
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+<div class="login">
+<style>
+.login #header {height:40px;}
+</style>
+  <div id="container">
+    <div id="header"  class="login">
+
+      <div class="branding">
+        <h1 id="site-name"><a href="#">Patient Login</a></h1>
+      </div>
+    </div>
+    <div id="content" class="colM">
+      <div id="content-main">
+        <form method="post" action="{% url 'userAdmin:auth_login' %}" id="login-form">
+          {% csrf_token %}
+          <div class="form-row">
+            <label class="required">Username:</label>
+            <input id="id_username" type="text" name="username"></input><br />
+          </div>
+          <div class="form-row">
+            <label class="required">Password</label>
+            <input id="id_password" type="password" name="password"></input><br />
+          </div>
+          <div class="submit-row">
+            <input type="submit" value="login" />
+            <input type="hidden" name="next" value="{{ next }}" />
+          </div>
+        </form>
+        {# Assumes you setup the password_reset view in your URLconf #}
+        <!--<p><a href="/form/password_reset">Lost password?</a></p>
+        <p><a href="/admin/">Login as admin</a></p>-->
+      </div>
+      <br class="clear"/>
+    </div><div id="footer"></div>
+  </div> 
+</div>
+
+{% endblock %}

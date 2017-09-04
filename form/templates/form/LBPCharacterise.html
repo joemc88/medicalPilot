@@ -1,0 +1,105 @@
+LBPCharacterise
+{% extends 'home/base.html' %}
+{% block content_block %}
+<style type="text/css">
+	#container{
+		width: 800px;
+  margin:0 auto;
+  text-align: left;
+
+	}
+	.aligned .lab{
+		width:500px;
+		font-weight: bold;
+		padding-left: 80px;
+	}
+</style>
+<div id="container">
+<h1>LBP Characterise</h1>
+
+<form action="/form/submitLBPCharacterise/" method="post">
+{% csrf_token  %}
+<fieldset class="module aligned">
+	<div class="form-row">
+		<label class="lab" >First name:</label>
+		<input class="vTextField" type="text" readonly="true" name="first_name" value="{{ user.first_name }}"></input><br />
+	</div>
+		<div class="form-row">
+		<label  class="lab" >Last name:</label>
+		<input class="vTextField" type="text" name="last_name"  readonly="true" value="{{ user.last_name }}"></input><br />
+	</div>
+		<div class="form-row">
+		<label class="lab">Date:</label>
+		<input class="vTextField" type ="text" name="date" readonly="true" value="{{ date }}"><br />
+	</div>
+		<div class="form-row">
+		<label class="lab">Location</label>
+		<input class="vTextField" type="text" name="Location"/>
+	</div>
+	<div class="form-row">
+		<label class="lab">Radiation</label>
+		<input class="vTextField" type="text" name="when_started"/>
+	</div>
+	<div class="form-row">
+		<label class="lab">Duration</label>
+		<input class="vTextField" type="text" name="where_pain" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Periodicity </label>
+		<input class="vTextField" type="text" name="pain_flab" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Character</label>
+		<input class="vTextField" type="text" name="pain_duration" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Aggrivating Factors </label>
+		<input class="vTextField" type="text" name="medication"/>
+	</div>
+	<div class="form-row">
+		<label class="lab">Relieving Factors </label>
+		<input class="vTextField" type="text" name="medication_works" />
+	</div>
+	<div class="form-row">
+	<h3>Associated Symptoms </h3>
+	</div>
+	<div class="form-row">
+		<label class="lab">Numbness</label>
+		<input  type="checkbox" name="Numbness" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Paraesthesia</label>
+		<input  type="checkbox" name="Paraesthesia" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Syncope</label>
+		<input  type="checkbox" name="Syncope" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Weakness</label>
+	<input  type="checkbox" name="Weakness" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Sphincter Disturbance</label>
+		<input  type="checkbox" name="SphincterDisturbance" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Dizziness</label>
+		<input  type="checkbox" name="Dizziness" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Other</label>
+		<input  type="checkbox" name="ASOther" />
+	</div>
+<div class="form-row">
+		<label class="lab">If other please state: </label>
+		<input class="vTextField" type="text" name="ASOtherStated" />
+	</div>
+</fieldset>	
+	<div class="submit-row">
+		<input type="submit" value="Submit">
+	</div>
+</form>
+</div>
+
+{% endblock %}

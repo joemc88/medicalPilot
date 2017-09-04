@@ -1,0 +1,54 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+<style type="text/css">
+	#container{
+		width: 855px;
+  margin:0 auto;
+  text-align: left;
+
+	}
+	.aligned .lab{
+		width:700px;
+		font-weight: bold;
+	}
+</style>
+<div id="container">
+<h1>Post-Operative Pain Report</h1>
+
+	<fieldset class="module aligned">
+	<div class="form-row">
+	<label class="lab">Patient Name: </label><p>{{patient.user.first_name}} {{patient.user.last_name}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Date:</label><p> {{submission.date}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Have you had pain since your last submission that you attribute to your current condition? </label><p>{{submission.had_pain}}</p>
+	</div>
+	<div class="form-row">	
+	<label class="lab">When did the pain begin? </label><p>{{submission.when_started}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Where is the pain located? </label><p>{{submission.where_pain}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Is the pain constant/intermittant? </label><p>{{submission.pain_flab}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">If the pain is intermittant, how long does it last? </label><p>{{submission.pain_duration}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Are you taking anymedication for your pain? </label><p>{{submission.medication}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Does the medication relieve the pain? </label><p>{{submission.medication_works}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">How much does the pain disturb your quality of life? </label><p>{{submission.life_disturbance}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Does the pain disturb your sleep? </label><p>{{submission.sleep_disturbed}}</p>
+	</fieldset>
+</div>
+<div class="submit-row"><a href="/form/">Go Back</a></div>
+{% endblock %}

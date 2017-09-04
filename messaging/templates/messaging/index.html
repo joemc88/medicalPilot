@@ -1,0 +1,14 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+
+
+<h1>Messaging</h1>
+	<h2>Conversations</h2>
+<ul>
+	{% for conversation in conversations %}
+		<li><a href="/messaging/conversation/{{conversation.id}}">{{conversation.title}}</a></li>
+	{%endfor%}
+</ul>
+<h2>send new message</h2>
+<a href="/messaging/newMessage">Send new message</a>
+{% endblock %}

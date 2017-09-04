@@ -1,0 +1,91 @@
+{% extends 'home/base.html' %}
+{% block content_block %}
+<style type="text/css">
+	#container{
+		width: 800px;
+  margin:0 auto;
+  text-align: left;
+
+	}
+	.aligned .lab{
+		width:500px;
+		font-weight: bold;
+		padding-left: 80px;
+	}
+</style>
+<div id="container">
+<h1>Create New Patient</h1>
+
+<form action="/userAdmin/submitNewPatient/" method="post">
+{% csrf_token  %}
+<fieldset class="module aligned">
+	<div class="form-row">
+		<label class="lab" >First name:</label>
+		<input class="vTextField" type="text" name="first_name"></input><br />
+	</div>
+		<div class="form-row">
+		<label  class="lab" >Last name:</label>
+		<input class="vTextField" type="text" name="last_name"></input><br />
+	</div>
+		<div class="form-row">
+		<label class="lab">Date of Birth:</label>
+		<input class="vTextField" type ="text" name="date_of_birth"><br />
+	</div>
+	<div class="form-row">
+		<label class="lab">Date admitted:</label>
+		<input class="vTextField" type="text" name="date_admitted" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Medical Card Number:</label>
+		<input class="vTextField" type="text" name="medical_card_number" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Primary Physician:</label>	
+		<div class="related-widget-wrapper">
+		<select name="physician" required id="id_user">
+		{% for x in doctors%}
+			<option value="{{x.user.id}}">{{x}}</option>
+		{%endfor%}
+		</select>
+		</div>
+	</div>
+	<div class="form-row">
+		<label class="lab">Email: </label>
+		<input class="vTextField" type="text" name="email" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Username: </label>
+		<input class="vTextField" type="text" name="username" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Enter Password: </label>
+		<input class="vTextField" type="password" name="password1" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Confirm Password: </label>
+		<input class="vTextField" type="password" name="password2" />
+	</div>
+	
+	<div class="form-row">
+		<label class="lab">Address Line 1:</label>
+		<input class="vTextField" type="text" name="address_line_one" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Address Line 2: </label>
+		<input class="vTextField" type="text" name="address_line_two" />
+	</div>
+	<div class="form-row">
+		<label class="lab">Address Line 3 </label>
+		<input class="vTextField" type="text" name="address_line_three" />
+	</div>
+
+	
+
+</fieldset>	
+	<div class="submit-row">
+		<input type="submit" value="Submit">
+	</div>
+</form>
+</div>
+
+{% endblock %}
