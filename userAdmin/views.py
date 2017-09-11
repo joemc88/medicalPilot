@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from .models import Patient,Doctor,Nurse
 
 def index(request):
+	print(request)
 	return render(request, "userAdmin/index.html")
 
 # Create your views here.

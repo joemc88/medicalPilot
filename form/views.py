@@ -63,7 +63,7 @@ def patientSubmissions(request, patient_id):
 	return render(request, 'form/submissions.html', context)	
 
 
-def review(request, submission_id):
+def reviewPainSubmission(request, submission_id):
 	
 	submission = get_object_or_404(FormSubmission, id = submission_id)
 	context = {
@@ -71,7 +71,37 @@ def review(request, submission_id):
 		'submission':submission
 	}
 
-	return render(request, 'form/review.html', context)
+	return render(request, 'form/reviewPainSubmission.html', context)
+
+def reviewBackPainSubmission(request, submission_id):
+	
+	submission = get_object_or_404(BackPain, id = submission_id)
+	context = {
+		'patient':submission.patient,
+		'submission':submission
+	}
+
+	return render(request, 'form/reviewBackPainSubmission.html', context)
+
+def reviewPainPerceptionDiarySubmission(request, submission_id):
+	
+	submission = get_object_or_404(PainPerceptionDiary, id = submission_id)
+	context = {
+		'patient':submission.patient,
+		'submission':submission
+	}
+
+	return render(request, 'form/reviewPainPerceptionDiarySubmission.html', context)
+
+def reviewLBPCharacteriseSubmission(request, submission_id):
+	
+	submission = get_object_or_404(LBPCharacterise, id = submission_id)
+	context = {
+		'patient':submission.patient,
+		'submission':submission
+	}
+
+	return render(request, 'form/reviewLBPCharacteriseSubmission.html', context)
 	
 
 def painForm(request):
@@ -120,11 +150,37 @@ def browsePatients(request):
 def browseForms(request):
 		return render(request, 'form/browseForms.html')
 
-def browseTemplateForms(request):
+def browsePainSubmissions(request):
 	#logic for getting all template pain forms submitted by patients where user is their primary physician
 	submissions = FormSubmission.objects.filter(patient = Patient.objects.filter(primary_physician = request.user))
-	context ={'submissions':submissions}
-	return render(request, 'form/browseTemplateForms.html',context)
+	context ={
+		'submissions':submissions,
+		 'type': 'PainForm',
+		 'Doctor': Doctor.objects.get(user = request.user)
+	}
+	return render(request, 'form/browseByFormGeneric.html',context)
+
+def browseBackPainSubmissions(request):
+	#logic for getting all template pain forms submitted by patients where user is their primary physician
+	submissions = BackPain.objects.filter(patient = Patient.objects.filter(primary_physician = request.user))
+	context ={'submissions':submissions,'type': 'BackPain',
+		 'Doctor': Doctor.objects.get(user = request.user)}
+	return render(request, 'form/browseByFormGeneric.html',context)
+
+def browseLBPCharacteriseSubmissions(request):
+	#logic for getting all template pain forms submitted by patients where user is their primary physician
+	submissions = LBPCharacterise.objects.filter(patient = Patient.objects.filter(primary_physician = request.user))
+	context ={'submissions':submissions, 'type': 'LBPCharacterise',
+		 'Doctor': Doctor.objects.get(user = request.user)}
+	return render(request, 'form/browseByFormGeneric.html',context)
+
+def browsePainPerceptionDiarySubmissions(request):
+	#logic for getting all template pain forms submitted by patients where user is their primary physician
+	submissions = PainPerceptionDiary.objects.filter(patient = Patient.objects.filter(primary_physician = request.user))
+	context ={'submissions':submissions, 'type': 'PainPerceptionDiary',
+		 'Doctor': Doctor.objects.get(user = request.user)}
+	return render(request, 'form/browseByFormGeneric.html',context)
+
 
 def painPerceptionDiaryForm(request):
 	context = {
@@ -187,6 +243,8 @@ def submitLBPCharacterise(request):
 
 		ASDizziness = request.POST.get("ASDizziness", False),
 		ASOther = request.POST.get("ASOther", False),
-		ASOtherStated = request.POST.get("ASOtherStated", "")
+		ASOtherStated = request.POST.get("ASOtherStated", ""),
+		Interventions_Analgesia = request.POST.get("Interventions_Analgesia", "")
+
 	)
 	return redirect('/form/mySubmissions')

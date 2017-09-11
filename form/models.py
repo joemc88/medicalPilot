@@ -43,6 +43,7 @@ class LBPCharacterise(models.Model):
 	patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
 	date = models.DateTimeField(auto_now_add=True )
 
+	#Diagnosis = models.CharField(max_length =250)
 	Location =  models.CharField(max_length =250)
 	Radiation = models.CharField(max_length =250)
 	Duration = models.CharField(max_length =250)

@@ -1,8 +1,8 @@
 #userAdmin urls
 
-from django.conf.urls import url
-from . import views
 
+from . import views
+from django.conf.urls import include, url
 app_name = 'userAdmin'
 #'^$' means default homepage within this 'app' or section of the website
 

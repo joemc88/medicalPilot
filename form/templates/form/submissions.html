@@ -5,16 +5,16 @@
 	{% if painForms or LBPs or BackPains or painDiaries%}
 	<ul>
 		{% for submission in painForms %}
-		<li><a href="/form/review/{{submission.id }}">{{submission}}</a></li>
+		<li><a href="/form/reviewPainSubmission/{{submission.id }}">{{submission}}</a></li>
 		{%endfor%}
 		{% for submission in LBPs %}
-		<li><a href="/form/review/{{submission.id }}">{{submission}}</a></li>
+		<li><a href="/form/reviewLBPCharacteriseSubmission/{{submission.id }}">{{submission}}</a></li>
 		{%endfor%}
 		{% for submission in BackPains %}
-		<li><a href="/form/review/{{submission.id }}">{{submission}}</a></li>
+		<li><a href="/form/reviewBackPainSubmission/{{submission.id }}">{{submission}}</a></li>
 		{%endfor%}
 		{% for submission in painDiaries %}
-		<li><a href="/form/review/{{submission.id }}">{{submission}}</a></li>
+		<li><a href="/form/reviewPainPerceptionDiarySubmission/{{submission.id }}">{{submission}}</a></li>
 		{%endfor%}
 
 	</ul>

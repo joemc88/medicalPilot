@@ -12,7 +12,13 @@
 		font-weight: bold;
 		padding-left: 80px;
 	}
+	.checkbox {
+		padding: 4px 10px 0 0;
+		height: 28px;
+		
+	}
 </style>
+
 <div id="container">
 <h1>Create New Patient</h1>
 
@@ -78,14 +84,58 @@
 		<label class="lab">Address Line 3 </label>
 		<input class="vTextField" type="text" name="address_line_three" />
 	</div>
-
-	
-
+	<div class="form-row">
+	<h2>Required forms:</h2>
+	</div>
+	<div class="form-row">
+		<label class="lab">Pain Form Template</label>
+		<input class="checkbox" type="checkbox" name="PainForm" />
+		<select class="checkbox" name="painFormNotify" >
+            <option value="" disabled selected>Select Notification Times</option>   
+            <option value="daily" >Daily</option>  
+            <option value="weekly" >Weekly</option> 
+            <option value="monthy" >Monthly</option>      
+        </select>
+    </div>
+    <div class="form-row">
+		<label class="lab">Pain Perception Diary</label>
+		<input class="checkbox" type="checkbox" name="PainPerceptionDiary" />
+		<select class="checkbox" name="ppdNotify" >
+            <option value="" disabled selected>Select Notification Times</option>  
+            <option value="minutely" >(testing) every Minute</option>  
+            <option value="daily" >Daily</option>  
+            <option value="weekly" >Weekly</option> 
+            <option value="monthy" >Monthly</option> 
+        </select>
+    </div>
+    <div class="form-row">
+		<label class="lab">Back Pain</label>
+		<input class="checkbox" type="checkbox" name="BackPain" />
+		<select class="checkbox" name="backPainNotify" >
+            <option value="" disabled selected>Select Notification Times</option>   
+            <option value="daily" >Daily</option>  
+            <option value="weekly" >Weekly</option> 
+            <option value="monthy" >Monthly</option> 
+        </select>
+    </div>
+	<div class="form-row">
+		<label class="lab">LBP Characterise</label>
+		<input class="checkbox" type="checkbox" name="LBPCharacterise" />
+		<select class="checkbox" name="lbpNotify" >
+            <option value="" disabled selected>Select Notification Times</option>   
+            <option value="daily" >Daily</option>  
+            <option value="weekly" >Weekly</option> 
+            <option value="monthy" >Monthly</option> 
+        </select>
+    </div>
 </fieldset>	
 	<div class="submit-row">
 		<input type="submit" value="Submit">
 	</div>
 </form>
+
+
+
 </div>
 
 {% endblock %}

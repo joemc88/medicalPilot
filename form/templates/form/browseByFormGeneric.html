@@ -1,0 +1,46 @@
+browseTemplateForms.html
+
+{% extends 'home/base.html' %}
+{% block content_block %}
+
+
+	{% if submissions%}
+	{% if type == 'PainForm' %}
+		<h1>List of Pain forms submitted to Dr. {{Doctor.user.first_name}} {{Doctor.user.last_name}}</h1>
+		<ul>
+			{% for submission in submissions %}
+			<li><a href="/form/reviewPainSubmission/{{submission.id}}">{{submission}} from {{submission.patient.user.first_name}} {{submission.patient.user.last_name}}</a></li>
+			{% endfor %}
+		</ul>
+	
+	{% elif type == 'BackPain' %}
+		<h1>List of Back Pain forms submitted to Dr. {{Doctor.user.first_name}} {{Doctor.user.last_name}}</h1>
+		<ul>
+			{% for submission in submissions %}
+			<li><a href="/form/reviewBackPainSubmission/{{submission.id}}">{{submission}} from {{submission.patient.user.first_name}} {{submission.patient.user.last_name}}</a></li>
+			{% endfor %}
+		</ul>
+	
+	{% elif type == 'LBPCharacterise' %}
+		<h1>List of LBPCharacterise forms submitted to Dr. {{Doctor.user.first_name}} {{Doctor.user.last_name}}</h1>
+		<ul>
+			{% for submission in submissions %}
+			<li><a href="/form/reviewLBPCharacteriseSubmission/{{submission.id}}">{{submission}} from {{submission.patient.user.first_name}} {{submission.patient.user.last_name}}</a></li>
+			{% endfor %}
+		</ul>
+
+	{% elif type == 'PainPerceptionDiary' %}
+		<h1>List of LBPCharacterise forms submitted to Dr. {{Doctor.user.first_name}} {{Doctor.user.last_name}}</h1>
+		<ul>
+			{% for submission in submissions %}
+			<li><a href="/form/reviewPainPerceptionDiarySubmission/{{submission.id}}">{{submission}} from {{submission.patient.user.first_name}} {{submission.patient.user.last_name}}</a></li>
+			{%endfor%}
+		</ul>
+	{% endif %}
+	{% else %}
+		<p>No submissions to yet for Dr. {{Doctor.user.first_name}} {{Doctor.user.last_name}}</p>
+	{% endif%}
+<br/>
+
+
+{% endblock %}

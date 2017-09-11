@@ -20,6 +20,7 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
 #TODO Add url mapping to each of the apps. and create a urls.py for each of them
     url(r'^$', include('home.urls'), name='home'),
+  #  url(r'', include('gcm.urls')),
 	url(r'^admin/', admin.site.urls),
 	url(r'^form/',include('form.urls'), name='form'),
     url(r'^home/',include('home.urls'), name='home'),

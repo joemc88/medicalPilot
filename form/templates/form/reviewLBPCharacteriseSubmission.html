@@ -1,0 +1,90 @@
+reviewLBPCharacteriseSubmission
+
+{% extends 'home/base.html' %}
+{% block content_block %}
+<style type="text/css">
+	#container{
+		width: 855px;
+  margin:0 auto;
+  text-align: left;
+
+	}
+	.aligned .lab{
+		width:700px;
+		font-weight: bold;
+	}
+</style>
+<div id="container">
+<h1>LBP Characterise Report</h1>
+
+	<fieldset class="module aligned">
+	<div class="form-row">
+	<label class="lab">Patient Name: </label><p>{{patient.user.first_name}} {{patient.user.last_name}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">DOB: </label><p>{{patient.date_of_birth}}</p>
+	</div>
+
+	<div class="form-row">
+	<label class="lab">Date submitted:</label><p> {{submission.date}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Diagnosis/ Main Complaint </label><p>{{submission}}</p>
+	</div>
+	<div class="form-row">	
+	<label class="lab">Location</label><p>{{submission.Location}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Radiation </label><p>{{submission.Radiation}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Duration</label><p>{{submission.Duration}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Periodicity</label><p>{{submission.Periodicity}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Character</label><p>{{submission.Character}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Aggrivating factors</label><p>{{submission.AggrivatingFactors}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Relieving Factors </label><p>{{submission.RelievingFactors}}</p>
+	</div>
+	<div class="form-row">
+	<h2 class="lab">Associated Factors</h2>
+	</div>
+	<div class="form-row">
+	<label class="lab">Numbness</label><p>{{submission.ASNumbness}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Paraesthesia </label><p>{{submission.ASParaesthesia}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Syncope </label><p>{{submission.ASSyncope}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Weakness </label><p>{{submission.ASWeakness}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Sphincter Disturbance </label><p>{{submission.ASSphincterDisturbance}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Dizziness </label><p>{{submission.ASDizziness}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Other </label><p>{{submission.ASOther}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">If other plaease state </label><p>{{submission.ASOtherStated}}</p>
+	</div>
+		<div class="form-row">
+	<label class="lab">Interventions/Analgesia </label><p>{{submission.Interventions_Analgesia}}</p>
+	</div>
+
+
+	</fieldset>
+</div>
+<div class="submit-row"><a href="/form/">Go Back</a></div>
+{% endblock %}

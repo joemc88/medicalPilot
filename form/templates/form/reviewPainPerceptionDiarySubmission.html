@@ -1,0 +1,76 @@
+reviewPainPerceptionDiarySubmission
+
+
+{% extends 'home/base.html' %}
+{% block content_block %}
+<style type="text/css">
+	#container{
+		width: 855px;
+  margin:0 auto;
+  text-align: left;
+
+	}
+	.aligned .lab{
+		width:700px;
+		font-weight: bold;
+	}
+</style>
+<div id="container">
+<h1>Pain Perception Diary Report</h1>
+
+	<fieldset class="module aligned">
+	<div class="form-row">
+	<label class="lab">Patient Name: </label><p>{{patient.user.first_name}} {{patient.user.last_name}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">DOB: </label><p>{{patient.date_of_birth}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Date submitted:</label><p> {{submission.date}}</p>
+	</div>
+	<div class="form-row">
+	<h2>BPI Assessment</h2>
+	</div>
+	<div class="form-row">	
+	<label class="lab">1. Pain at its WORST in the past week</label><p>{{submission.PainAtWorst}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">2. Pain at its LEAST in the past week </label><p>{{submission.PainAtLeast}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">3. Pain on AVERAGE</label><p>{{submission.PainOnAverage}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">4. Pain RIGHT NOW</label><p>{{submission.PainRightNow}}</p>
+	</div>
+	<div class="form-row">
+	<h2>5. Pain has INTERFERED with your:</h2>
+	</div>
+	<div class="form-row">
+	<label class="lab">General Activity</label><p>{{submission.GeneralActivity}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Mood</label><p>{{submission.Mood}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Walking Ability</label><p>{{submission.WalkingAbility}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Normal Work</label><p>{{submission.NormalWork}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Relationships with other people </label><p>{{submission.Relationships}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Sleep </label><p>{{submission.Sleep}}</p>
+	</div>
+	<div class="form-row">
+	<label class="lab">Enjoyment of life </label><p>{{submission.EnjoymentOfLife}}</p>
+	</div>
+	
+
+
+	</fieldset>
+</div>
+<div class="submit-row"><a href="/form/">Go Back</a></div>
+{% endblock %}
