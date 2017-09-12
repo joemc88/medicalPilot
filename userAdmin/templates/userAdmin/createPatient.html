@@ -89,9 +89,10 @@
 	</div>
 	<div class="form-row">
 		<label class="lab">Pain Form Template</label>
-		<input class="checkbox" type="checkbox" name="PainForm" />
+		<input class="checkbox" type="checkbox" name="submitsPainForm" value="True"/>
 		<select class="checkbox" name="painFormNotify" >
-            <option value="" disabled selected>Select Notification Times</option>   
+            <option value="" disabled selected>Select Notification Times</option> 
+            <option value="daily" >Never</option>  
             <option value="daily" >Daily</option>  
             <option value="weekly" >Weekly</option> 
             <option value="monthy" >Monthly</option>      
@@ -99,10 +100,11 @@
     </div>
     <div class="form-row">
 		<label class="lab">Pain Perception Diary</label>
-		<input class="checkbox" type="checkbox" name="PainPerceptionDiary" />
+		<input class="checkbox" type="checkbox" name="submitsPPD" value="True"/>
 		<select class="checkbox" name="ppdNotify" >
             <option value="" disabled selected>Select Notification Times</option>  
-            <option value="minutely" >(testing) every Minute</option>  
+            <option value="minutely" >(testing) every Minute</option>
+            <option value="daily" >Never</option>  
             <option value="daily" >Daily</option>  
             <option value="weekly" >Weekly</option> 
             <option value="monthy" >Monthly</option> 
@@ -110,9 +112,10 @@
     </div>
     <div class="form-row">
 		<label class="lab">Back Pain</label>
-		<input class="checkbox" type="checkbox" name="BackPain" />
+		<input class="checkbox" type="checkbox" name="submitsBackPain" value="True" />
 		<select class="checkbox" name="backPainNotify" >
-            <option value="" disabled selected>Select Notification Times</option>   
+            <option value="" disabled selected>Select Notification Times</option>  
+            <option value="daily" >Never</option>  
             <option value="daily" >Daily</option>  
             <option value="weekly" >Weekly</option> 
             <option value="monthy" >Monthly</option> 
@@ -120,9 +123,10 @@
     </div>
 	<div class="form-row">
 		<label class="lab">LBP Characterise</label>
-		<input class="checkbox" type="checkbox" name="LBPCharacterise" />
-		<select class="checkbox" name="lbpNotify" >
-            <option value="" disabled selected>Select Notification Times</option>   
+		<input class="checkbox" type="checkbox" name="submitsLBPCharacterise" value="True"/>
+		<select class="checkbox" name="lbpcNotify" >
+            <option value="" disabled selected>Select Notification Times</option>  
+            <option value="daily" >Never</option>   
             <option value="daily" >Daily</option>  
             <option value="weekly" >Weekly</option> 
             <option value="monthy" >Monthly</option> 

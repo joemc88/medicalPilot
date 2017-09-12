@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^messaging/', include('messaging.urls'), name='messaging'),
     url(r'^analyse/',include('analyse.urls'), name='analyse'),
     url(r'^userAdmin/',include('userAdmin.urls'), name='userAdmin'),
+  #  url(r'^favicon.ico$', django.views.static.serve, {'/': '/favicon.ico'}),
 ]

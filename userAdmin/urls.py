@@ -13,6 +13,10 @@ urlpatterns = [
     url(r'^logout/$', views.auth_logout, name='auth_logout'),
     url(r'^createPatient/$', views.createPatient, name='createPatient'),
     url(r'^browsePatients/$', views.browsePatients, name='browsePatients'),
+    url(r'^managePatients/$', views.managePatients, name='managePatients'),
+    url(r'^registerDevice/$', views.registerDevice, name='registerDevice'),
+    url(r'^sendReminders/$', views.sendReminders, name='sendReminders'),
+
     url(r'^submitNewPatient/$', views.submitNewPatient, name='submitNewPatient'),
     
 
