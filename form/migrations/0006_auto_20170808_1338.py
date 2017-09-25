@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 from django.db import migrations, models
 import django.db.models.deletion
-from userAdmin.models import Patient,Doctor, Nurse
+from userAdmin.models import Patient,Doctor, Administrator
 
 class Migration(migrations.Migration):
 

@@ -3,10 +3,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.contrib.auth.views import logout
 from django.contrib.auth import authenticate, login
-from userAdmin.models import Patient, Doctor
+from userAdmin.models import Patient, Doctor, Administrator
 from django.contrib.auth.models import User
 from .models import Message, Conversation, ConversationUsers
 from django.db.models import Q
+from gcm import *
 def index(request):
 	try:
 		convosUsersIn = ConversationUsers.objects.filter(user = request.user)
@@ -25,8 +26,10 @@ def index(request):
 
 def messageForm(request):
 	doctors = Doctor.objects.all()
+	admins = Administrator.objects.all()
 	patients = Patient.objects.filter(primary_physician = request.user.id)
 	context = {
+		'admins': admins,
 		'doctors' : doctors ,
 		'patients' : patients
 	}
@@ -77,6 +80,12 @@ def sendMessage(request):
 		conversation = conversation
 	)
 	message.save()
+	print('attempting to send notification to')
+	token = Patient.objects.get(user = User.objects.get(id = request.POST.get('recipient',''))).deviceToken
+	print(token)
+	gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
+	data = {'message': 'You have recieved a new message'}
+	gcm.plaintext_request(registration_id=token, data = data) 
 
 	return redirect('/messaging')
 
@@ -92,10 +101,16 @@ def sendReply(request):
 		text = request.POST.get('message',''),
 		sender =request.user,
 		recipient = User.objects.get(id = request.POST.get('recipient','')),
-		conversation = conversation
+		conversation = conversation,
+		read = False
 	)
 	message.save()
-
+	print('attempting to send notification to')
+	token = Patient.objects.get(user = User.objects.get(id = request.POST.get('recipient',''))).deviceToken
+	print(token)
+	gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
+	data = {'message': 'You have recieved a new message'}
+	gcm.plaintext_request(registration_id=token, data = data) 
 
 	return redirect('/messaging/conversation/'+str(conversation.id))
 
@@ -104,7 +119,10 @@ def conversation(request, conversation_id):
 
 	conversation = Conversation.objects.get(id  =conversation_id)
 	messages = Message.objects.filter(conversation = conversation)
-
+	for message in messages:
+		if message.sender != request.user:
+			message.read = True
+			message.save()
 	#get implicit recipient from previous messages
 	try:
 		recipient = Message.objects.filter(conversation = conversation).filter(sender = request.user).first().recipient

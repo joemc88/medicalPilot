@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.contrib.auth.views import logout
 from django.contrib.auth import authenticate, login
-from userAdmin.models import Patient, Doctor
+from userAdmin.models import Patient, Doctor, Administrator
 from gcm import *
 def index(request):
 	#gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
@@ -13,19 +13,20 @@ def index(request):
 
 	#gcm.plaintext_request(registration_id=reg_id, data=data)
 
-
-
-
-
-
 	if request.user.is_authenticated():
 		try:
 			doctor = Doctor.objects.get(user = request.user)
-			userIsAdmin = True
+			userIsDoctor = True
 			pass
 		except Doctor.DoesNotExist:
+			userIsDoctor = False
+		try:
+			admin =  Administrator.objects.get(user = request.user)
+			userIsAdmin = True
+		except Administrator.DoesNotExist:
 			userIsAdmin = False
-		context = {'userIsAdmin': userIsAdmin }
+
+		context = {'userIsDoctor': userIsDoctor, 'userIsAdmin': userIsAdmin }
 		return render(request, 'home/index.html', context)
 	else:
 		return redirect('/userAdmin/loginForm/')

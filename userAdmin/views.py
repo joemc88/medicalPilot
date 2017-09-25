@@ -3,7 +3,7 @@ from django.http import Http404, HttpResponse
 from django.contrib.auth.views import logout
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from .models import Patient,Doctor,Nurse, PatientReminders
+from .models import Patient,Doctor,Administrator, PatientReminders
 from gcm import *
 import datetime
 
@@ -121,11 +121,7 @@ def registerDevice(request):
 		token =request.GET.get('token','')
 		patient.deviceToken = token
 		patient.save();
-		gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
-		data = {'message': 'registered.'}
-		#reg_id = 'dSUuoNROjWA:APA91bFJ2HEUX6KrN2F003k-tQyWp1WmfUnGxarVTZ4eopJrIXtrYnBgpN2c_1GbsKfTeLMg_uKCzKEQHPBl4SHOdkWoyAXjkteKqaFEncFsuGJYNScsC6_uAHpSw5o9ihdx_oSHp3m6'
-		reg_id = token
-		gcm.plaintext_request(registration_id=reg_id, data=data)
+		
 		return HttpResponse("success")
 	else:
 		return HttpResponse("failure")
@@ -136,10 +132,10 @@ def sendReminders(request):
 	for reminder in reminders:
 		timeElapsed = datetime.date.today() - reminder.lastReminder.date()
 		print(timeElapsed)
-		if  (reminder.submissionFrequency =='daily') and (timeElapsed < datetime.timedelta(days=1)):
+		if  (reminder.submissionFrequency =='daily'):# and (timeElapsed < datetime.timedelta(days=1)):
 			token = reminder.patient.deviceToken
 			gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
-			data = {'message': 'remember to submit yor form'}
+			data = {'message': 'remember to submit your form'}
 			gcm.plaintext_request(registration_id=token, data = data) 
 			reminder.lastReminder = datetime.date.today()
 			reminder.save()
@@ -147,7 +143,7 @@ def sendReminders(request):
 		if  reminder.submissionFrequency =='weekly' and (timeElapsed >datetime.timedelta(days=7)):
 			token = reminder.patient.deviceToken
 			gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
-			data = {'message': 'remember to submit yor form'}
+			data = {'message': 'remember to submit your form'}
 			gcm.plaintext_request(registration_id=token, data = data) 
 			reminder.lastReminder = datetime.date.today()
 			reminder.save()
@@ -155,7 +151,7 @@ def sendReminders(request):
 		if  reminder.submissionFrequency =='monthly' and (timeElapsed >datetime.timedelta(days=30)):
 			token = reminder.patient.deviceToken
 			gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
-			data = {'message': 'remember to submit yor form'}
+			data = {'message': 'remember to submit your form'}
 			gcm.plaintext_request(registration_id=token, data = data)
 			reminder.lastReminder = datetime.date.today()
 			reminder.save() 

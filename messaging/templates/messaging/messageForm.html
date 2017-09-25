@@ -11,7 +11,10 @@
         {% for x in doctors%}
             <option value="{{x.user.id}}">{{x}}</option>
         {%endfor%}
-          {% for y in patients%}
+        {% for z in admins%}
+            <option value="{{z.user.id}}">{{z}}</option>
+        {% endfor %}
+        {% for y in patients%}
             <option value="{{y.user.id}}">{{y}}</option>
         {%endfor%}
         </select>

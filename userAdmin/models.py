@@ -40,10 +40,10 @@ class Doctor(models.Model):
 		#return str(self.user)
 		return self.user.first_name + " " +self.user.last_name + "\n Specialty: "+ self.specialty +"\n"
 
-class Nurse(models.Model):
+class Administrator(models.Model):
 	user = models.ForeignKey(User, null=True, related_name='nurse_user')
 	phone_number = models.CharField(max_length=15)
 
 	def __str__(self):
 		
-		return "Nurse "+self.user.first_name + " " +self.user.last_name+"\n"
+		return "Admin "+self.user.first_name + " " +self.user.last_name+"\n"
