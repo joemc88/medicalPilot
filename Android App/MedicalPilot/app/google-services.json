@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "946032636245",
+    "firebase_url": "https://medicalpilot-179216.firebaseio.com",
+    "project_id": "medicalpilot-179216",
+    "storage_bucket": "medicalpilot-179216.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946032636245:android:2c877c451293bb3d",
+        "android_client_info": {
+          "package_name": "com.mcevoy.joe.medicalpilot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946032636245-tqgphv93s5d4rp208aim2etksaqimvuh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVuI5x_KQn0DSGW3cyPvYiOKx4zco7jCk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
