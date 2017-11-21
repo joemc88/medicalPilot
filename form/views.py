@@ -6,8 +6,6 @@ from django.http import Http404
 from django.contrib.auth.views import logout
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-
-
 import datetime
 
 def index(request):
@@ -35,19 +33,19 @@ def mySubmissions(request):
 	painDiaries = PainPerceptionDiary.objects.filter(patient =Patient.objects.get(user = request.user.id))
 	LBPs = LBPCharacterise.objects.filter(patient=Patient.objects.get(user = request.user.id) )
 	BackPains = BackPain.objects.filter(patient=Patient.objects.get(user = request.user.id) )
+	
 	context ={
 		'patient' : Patient.objects.get(user = request.user.id),
 		'painForms' : painForms,
 		'painDiaries': painDiaries,
 		'LBPs': LBPs,
-		'BackPains' : BackPains,
-		
+		'BackPains' : BackPains,	
 	}
 	return render(request, 'form/submissions.html', context)
 
 
 def patientSubmissions(request, patient_id):
-	#TODO fix is doctor check. dont limit to pain form submissions
+	#TODO fix is doctor check.
 	painForms = FormSubmission.objects.filter(patient = patient_id) 
 	painDiaries = PainPerceptionDiary.objects.filter(patient =patient_id)
 	LBPs = LBPCharacterise.objects.filter(patient=patient_id) 
@@ -61,7 +59,6 @@ def patientSubmissions(request, patient_id):
 		
 	}
 	return render(request, 'form/submissions.html', context)	
-
 
 def reviewPainSubmission(request, submission_id):
 	
@@ -117,6 +114,7 @@ def backPainForm(request):
 
 def submitBackPain(request):
 	return HttpResponse("submit back pain")
+
 #prototype for submitting new form
 def submitPainForm(request):
 	patient = Patient.objects.get(user = request.user.id)
@@ -161,21 +159,21 @@ def browsePainSubmissions(request):
 	return render(request, 'form/browseByFormGeneric.html',context)
 
 def browseBackPainSubmissions(request):
-	#logic for getting all template pain forms submitted by patients where user is their primary physician
+	#logic for getting all Backpain forms submitted by patients where user is their primary physician
 	submissions = BackPain.objects.filter(patient = Patient.objects.filter(primary_physician = request.user))
 	context ={'submissions':submissions,'type': 'BackPain',
 		 'Doctor': Doctor.objects.get(user = request.user)}
 	return render(request, 'form/browseByFormGeneric.html',context)
 
 def browseLBPCharacteriseSubmissions(request):
-	#logic for getting all template pain forms submitted by patients where user is their primary physician
+	#logic for getting all LBPCharacterise pain forms submitted by patients where user is their primary physician
 	submissions = LBPCharacterise.objects.filter(patient = Patient.objects.filter(primary_physician = request.user))
 	context ={'submissions':submissions, 'type': 'LBPCharacterise',
 		 'Doctor': Doctor.objects.get(user = request.user)}
 	return render(request, 'form/browseByFormGeneric.html',context)
 
 def browsePainPerceptionDiarySubmissions(request):
-	#logic for getting all template pain forms submitted by patients where user is their primary physician
+	#logic for getting all pain perception diary forms submitted by patients where user is their primary physician
 	submissions = PainPerceptionDiary.objects.filter(patient = Patient.objects.filter(primary_physician = request.user))
 	context ={'submissions':submissions, 'type': 'PainPerceptionDiary',
 		 'Doctor': Doctor.objects.get(user = request.user)}
@@ -183,6 +181,7 @@ def browsePainPerceptionDiarySubmissions(request):
 
 
 def painPerceptionDiaryForm(request):
+	#return pain perception diary form
 	context = {
 	 'user': request.user,
 	 'date': datetime.date.today()
@@ -192,6 +191,7 @@ def painPerceptionDiaryForm(request):
 
 
 def submitPainPerceptionDiary(request):
+	#logic for committing pain perception diary to DB
 	patient = Patient.objects.get(user = request.user.id)
 	patient.painperceptiondiary_set.create(
 		date =datetime.date.today(),
@@ -199,13 +199,10 @@ def submitPainPerceptionDiary(request):
 		PainAtLeast =request.POST.get("PainAtLeast", ""),
 		PainOnAverage = request.POST.get("PainOnAverage", ""),
 		PainRightNow = request.POST.get("PainRightNow", ""),
-	
-
 		GeneralActivity = request.POST.get("GeneralActivity", ""),
 		Mood =  request.POST.get("Mood", ""),
 		WalkingAbility = request.POST.get("WalkingAbility", ""),
 		NormalWork = request.POST.get("NormalWork", ""),
-	
 		EnjoymentOfLife = request.POST.get("EnjoymentOfLife", ""),
 		Relationships = request.POST.get("Relationships", ""),
 		Sleep = request.POST.get("Sleep", "")
@@ -214,6 +211,7 @@ def submitPainPerceptionDiary(request):
 	return redirect('/form/mySubmissions')
 
 def LBPCharacteriseForm(request):
+	#return empty LBP Characterise form
 	context = {
 	 'user': request.user,
 	 'date': datetime.date.today()
@@ -223,6 +221,7 @@ def LBPCharacteriseForm(request):
 
 
 def submitLBPCharacterise(request):
+	#logic for committing LBPCbaracterise to DB
 	patient = Patient.objects.get(user = request.user.id)
 	patient.lbpcharacterise_set.create(
 		date =datetime.date.today(),

@@ -5,6 +5,12 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from .models import Patient,Doctor,Administrator, PatientReminders
 from gcm import *
+from urllib import *
+import http
+import urllib
+import urllib3
+import json
+import sys
 import datetime
 
 def index(request):
@@ -34,7 +40,7 @@ def createPatient(request):
 	context ={
 		'doctors' : Doctor.objects.all()
 	}
-	
+
 	return render(request, 'userAdmin/createPatient.html',context)
 
 def browsePatients(request):
@@ -121,40 +127,44 @@ def registerDevice(request):
 		token =request.GET.get('token','')
 		patient.deviceToken = token
 		patient.save();
-		
+
 		return HttpResponse("success")
 	else:
 		return HttpResponse("failure")
 
 def sendReminders(request):
+	#logic for sending reminders to patients using google cloud messenger based on how long has elapsed since last reminder
+	#must still be triggered manually by clicking sendReminders on userAdmin page
 	reminders = PatientReminders.objects.all()
- 
+
 	for reminder in reminders:
 		timeElapsed = datetime.date.today() - reminder.lastReminder.date()
 		print(timeElapsed)
-		if  (reminder.submissionFrequency =='daily'):# and (timeElapsed < datetime.timedelta(days=1)):
-			token = reminder.patient.deviceToken
-			gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
-			data = {'message': 'remember to submit your form'}
-			gcm.plaintext_request(registration_id=token, data = data) 
-			reminder.lastReminder = datetime.date.today()
-			reminder.save()
-		
+		#note how time elapsed is commented out. this is for demonstration purposes as they would onld send once a day otherwise.
+		if  (reminder.submissionFrequency =='daily'):# and (timeElapsed > datetime.timedelta(days=1)):
+		    gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
+		    data = {"message" : 'Your need to submit your form', "title" : 'remember to fill in your form',"icon" : "ic_cloud_white_48dp"}
+		    token = reminder.patient.deviceToken
+		    reg_ids =[token]
+		    response = gcm.json_request(registration_ids=reg_ids, data=data)
+		    reminder.lastReminder = datetime.date.today()
+		    reminder.save()
+
 		if  reminder.submissionFrequency =='weekly' and (timeElapsed >datetime.timedelta(days=7)):
-			token = reminder.patient.deviceToken
 			gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
-			data = {'message': 'remember to submit your form'}
-			gcm.plaintext_request(registration_id=token, data = data) 
+			data = {"message" : 'Your need to submit your form', "title" : 'remember to fill in your form',"icon" : "ic_cloud_white_48dp"}
+			token = reminder.patient.deviceToken
+			reg_ids =[token]
+			response = gcm.json_request(registration_ids=reg_ids, data=data)
 			reminder.lastReminder = datetime.date.today()
 			reminder.save()
 
 		if  reminder.submissionFrequency =='monthly' and (timeElapsed >datetime.timedelta(days=30)):
-			token = reminder.patient.deviceToken
 			gcm = GCM("AAAA3EPwcVU:APA91bGQKwkhEKjWQf5CPAbVXXzhFTa5tpl6IJ2VYSAb5mbn2dBF5ppMUAKzm8OAKR4NRkX3x-Juyk9TBcqjKUmLxUWAXU33j_9KHCsyyIzaJ4up_2dhFxt1wkw9OthRXrXFob11QGPl")
-			data = {'message': 'remember to submit your form'}
-			gcm.plaintext_request(registration_id=token, data = data)
+			data = {"message" : 'Your need to submit your form', "title" : 'remember to fill in your form',"icon" : "ic_cloud_white_48dp"}
+			token = reminder.patient.deviceToken
+			reg_ids =[token]
+			response = gcm.json_request(registration_ids=reg_ids, data=data)
 			reminder.lastReminder = datetime.date.today()
-			reminder.save() 
+			reminder.save()
 	return redirect('/userAdmin')
-
-

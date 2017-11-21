@@ -9,11 +9,14 @@ import datetime
 def index(request ):
 	return render(request, 'analyse/index.html',)
 
+
 def ppd(request):
+	#show graph page without the actual graph, just includes a drop down to choose patient and parameter.
 	Patients = Patient.objects.filter(primary_physician =   request.user.id)
 	context = {'patients':Patients}
 	return render(request, 'analyse/graph.html', context)
 
+#these methods call ppdGraphRender with a specific parameter and patient
 def ppdPainAtWorst(request, patient_id):
 	return ppdRenderGraph(request, patient_id, 'painAtWorst')
 
@@ -47,7 +50,10 @@ def ppdSleep(request, patient_id):
 def ppdEnjoyment(request, patient_id):
 	return ppdRenderGraph(request, patient_id, 'enjoyment')
 
+
+
 def ppdRenderGraph(request, patient_id, requestedData):
+	#logic for extracting relevant data from DB and passing it to page which links to chart.js to render graph
 	Patients = Patient.objects.filter(primary_physician =   request.user.id)
 	selectedPatient = Patient.objects.get(id  = patient_id)
 	PainDiaries = PainPerceptionDiary.objects.filter(patient = patient_id)
